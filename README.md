@@ -1,2 +1,10 @@
-# spatial
+# Spatial Data and Scripts
 
+This directory contains spatial data files and the scripts that produce them.
+
+## Data
+
+| File name | Script | Language | Description|
+|:----------|:-----|:-------|:-----------|
+|`neighborcounties.csv`|`neighborcounties.py`|Python 3.5|Long data file that lists all adjacent counties|
+|`county_centers.csv`|`popcenters.r`|R 3.2.3|Geocoordinates for geographic and population-weighted centers in all counties, 2000 and 2010|
