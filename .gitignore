@@ -1,3 +1,4 @@
 *.dbf
 *.shp
 *.shx
+*.Rhistory
