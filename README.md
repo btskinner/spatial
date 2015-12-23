@@ -1,5 +1,3 @@
-# Spatial data and scripts
-
 This directory contains spatial data files and the scripts that produce them. The data files are linked both to their GitHub repository location and a raw version to facilitate easy download. Scripts to produce the datasets can be found in the `./scripts` subdirectory of the repository.  
 
 ## Data
