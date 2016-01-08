@@ -272,7 +272,7 @@ df <- df %>% filter(!is.infinite(miles))
 df <- df %>% arrange(fips,year)
 
 ## write to disk
-write_csv(df,paste0(ddir,'nearesthei.csv'))
+write_csv(df,paste0(ddir,'nearest_hei.csv'))
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## END FILE
