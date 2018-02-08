@@ -260,7 +260,7 @@ for(y in years) {
 
     ## collapse list
     message('\nCollapsing list into single dataframe')
-    out <- do.call('rbind', dflist)
+    out <- bind_rows(dflist)
 
     ## arrange
     yearlist[[as.character(y)]] <- out %>% arrange(fips,year)
