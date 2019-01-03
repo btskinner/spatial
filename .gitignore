@@ -2,3 +2,4 @@
 *.shp
 *.shx
 *.Rhistory
+*.DS_Store
