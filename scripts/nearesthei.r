@@ -4,6 +4,7 @@
 ## FILE: nearesthei.r
 ## AUTH: Benjamin Skinner
 ## INIT: 29 December 2015
+## REVN: 8 February 2018
 ##
 ################################################################################
 
@@ -46,9 +47,9 @@ getIpeds <- function(year) {
     f <- paste0('HD',year)
 
     ## download file
-    url <- paste0('http://nces.ed.gov/ipeds/datacenter/data/',f,'.zip')
+    url <- paste0('https://nces.ed.gov/ipeds/datacenter/data/',f,'.zip')
     temp <- tempfile()
-    download.file(url,temp,method='internal')
+    download.file(url,temp)
 
     ## read file; lower names
     df <- read_csv(unz(temp,paste0(tolower(f),'.csv')))
@@ -189,7 +190,7 @@ popcen <- popcen %>%
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## IPEDS years to use
-years <- c(2010:2014)
+years <- c(2010:2016)
 
 ## init list
 yearlist <- list()
@@ -234,6 +235,9 @@ for(y in years) {
                        pub == combo[[c]][4],
                        pnp == combo[[c]][5],
                        pfp == combo[[c]][6])
+        } else {
+            ## no subset
+            hei_sub <- hei
         }
 
         ## get nearest
@@ -256,14 +260,14 @@ for(y in years) {
 
     ## collapse list
     message('\nCollapsing list into single dataframe')
-    out <- do.call('rbind', dflist)
+    out <- bind_rows(dflist)
 
     ## arrange
     yearlist[[as.character(y)]] <- out %>% arrange(fips,year)
 }
 
 ## collapse year list into single dataframe
-df <- do.call('rbind', yearlist)
+df <- bind_rows(yearlist)
 
 ## some states don't have all types of institutions; drop if mile is Inf
 df <- df %>% filter(!is.infinite(miles))
