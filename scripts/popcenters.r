@@ -24,6 +24,7 @@
 rm(list=ls())
 
 ## libraries
+library(tidyverse)
 libs <- c('dplyr','RCurl','readr')
 lapply(libs, require, character.only=TRUE)
 
@@ -43,9 +44,12 @@ url2 <- paste0(urldir, 'Gaz_counties_national.zip')
 temp1 <- tempfile(); download.file(url1, temp1)
 temp2 <- tempfile(); download.file(url2, temp2)
 
+fw <- fwf_widths(c(72,8,9,14,14,12,12,10,11))
+
 ## read; fixed width for 2000; tab delimited for 2010
 cen00 <- read_fwf(unz(temp1, 'county2k.txt', open='rb'),
-                  fwf_widths(c(72,8,9,14,14,12,12,10,11)))
+                  col_positions =fw, 
+                  locale = locale(encoding = "LATIN1"))
 cen10 <- read_delim(unz(temp2, 'Gaz_counties_national.txt', open='rb'),
                     delim='\t')
 
@@ -56,6 +60,20 @@ cen00 <- cen00 %>%
     rename(clon00 = X9,
            clat00 = X8)
 
+colnames(cen10) <- c("USPS", 
+                     "GEOID",
+                     "ANSICODE",
+                     "NAME",
+                     "POP10",
+                     "HU10",
+                     "ALAND",
+                     "AWATER",
+                     "ALAND_SQMI",
+                     "AWATER_SQMI",
+                     "INTPTLAT",
+                     "INTPTLONG")
+
+## stopping point
 cen10 <- cen10 %>%
     select(GEOID, INTPTLONG, INTPTLAT) %>%
     rename(fips = GEOID,

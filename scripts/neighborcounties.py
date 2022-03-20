@@ -7,9 +7,13 @@
 # ==============================================================================
 
 # libraries
-import pysal as ps
 import pandas as pd
 import numpy as np
+import pysal as ps
+import libpysal as lps
+from libpysal.weights import Rook
+import os
+
 
 # data dirs
 shp = '../data/tl_2010_us_county10.shp'
@@ -23,7 +27,8 @@ dbf = '../data/tl_2010_us_county10.dbf'
 print('\nFinding adjacent counties.\n')
 
 # read in data, finding counties that share borders
-counties = ps.rook_from_shapefile(shp)
+
+counties = lps.weights.Rook.from_shapefile(shp)
 
 # store neighbors dictionary
 neighbors = counties.neighbors
@@ -54,7 +59,7 @@ neighbors = neighbors.sort_values(['id','adjid'])
 print('\nCreating concordance dataframe.\n')
 
 # get accompanying database information
-db = ps.open(dbf)
+db = lps.io.open(dbf)
 
 # select fips column
 concordance = pd.DataFrame(db.by_col_array(['GEOID10']), columns=['fips'])
