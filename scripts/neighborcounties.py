@@ -1,10 +1,13 @@
 # ==============================================================================
 #
 # FILE: neighborcounties.py
-# AUTH: Benjamin Skinner
-# INIT: 3 July 2015
+# AUTH: Benjamin Skinner (updated by Olivia Morales)
+# INIT: 3 July 2015 (up. 17 March 2022)
 #
 # ==============================================================================
+
+## updated libraries/function in scripts to reflect recent PySAL 2.0 release; all details 
+## on PySAL 2.0 are at https://github.com/pysal/pysal/blob/master/MIGRATING.md
 
 # libraries
 import pandas as pd
@@ -27,6 +30,7 @@ dbf = '../data/tl_2010_us_county10.dbf'
 print('\nFinding adjacent counties.\n')
 
 # read in data, finding counties that share borders
+## change in function syntax (PySAL 2.0)
 
 counties = lps.weights.Rook.from_shapefile(shp)
 
@@ -59,6 +63,8 @@ neighbors = neighbors.sort_values(['id','adjid'])
 print('\nCreating concordance dataframe.\n')
 
 # get accompanying database information
+## change in function syntax (PySAL 2.0)
+
 db = lps.io.open(dbf)
 
 # select fips column

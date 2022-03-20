@@ -2,8 +2,8 @@
 ##
 ## PROJ: Population Centers
 ## FILE: popcenters.r
-## AUTH: Benjamin Skinner
-## INIT: 26 October 2014
+## AUTH: Benjamin Skinner (updated by Olivia Morales)
+## INIT: 26 October 2014 (up. 17 March 2022)
 ##
 ################################################################################
 
@@ -19,6 +19,8 @@
 ## 2010: ftp://ftp.census.gov/geo/docs/reference/cenpop2010/county
 ##
 ################################################################################
+
+## fixed up column name that was causing trouble in subsequent functions
 
 ## clear memory
 rm(list=ls())
@@ -60,6 +62,7 @@ cen00 <- cen00 %>%
     rename(clon00 = X9,
            clat00 = X8)
 
+## renamed all columns b/c INTPTLONG had a ` in front of it
 colnames(cen10) <- c("USPS", 
                      "GEOID",
                      "ANSICODE",
